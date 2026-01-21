@@ -1,0 +1,17 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches: [ main ] # запускать при пуше в main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute remote script via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}      # IP сервера
+          username: ${{ secrets.USER }}  # Пользователь (напр. root)
+          key: ${{ secrets.SSH_KEY }}    # Приватный SSH ключ
+          script: /bin/bash /path/to/deploy.sh
